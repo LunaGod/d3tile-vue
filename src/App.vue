@@ -33,6 +33,16 @@ import {
   TimeDynamicPointCloud
 } from "cesium";
 
+type TilesetTarget =
+  | Entity
+  | Entity[]
+  | EntityCollection
+  | DataSource
+  | ImageryLayer
+  | Cesium3DTileset
+  | TimeDynamicPointCloud
+  | Promise<Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud>;
+
 export default defineComponent({
   name: "App",
   setup: () => {
@@ -81,19 +91,7 @@ export default defineComponent({
           url: model.link
         })
       );
-      titleSet.readyPromise.then(function (
-        tileset:
-          | Entity
-          | Entity[]
-          | EntityCollection
-          | DataSource
-          | ImageryLayer
-          | Cesium3DTileset
-          | TimeDynamicPointCloud
-          | Promise<
-              Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud
-            >
-      ) {
+      titleSet.readyPromise.then(function (tileset: TilesetTarget) {
         window.map.zoomTo(tileset);
         model.isLoad = true;
       });
@@ -104,19 +102,7 @@ export default defineComponent({
           url: customLink.value
         })
       );
-      titleSet.readyPromise.then(function (
-        tileset:
-          | Cesium3DTileset
-          | Entity
-          | Entity[]
-          | EntityCollection
-          | DataSource
-          | ImageryLayer
-          | TimeDynamicPointCloud
-          | Promise<
-              Cesium3DTileset | Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | TimeDynamicPointCloud
-            >
-      ) {
+      titleSet.readyPromise.then(function (tileset: TilesetTarget) {
         window.map.zoomTo(tileset);
       });
     };
