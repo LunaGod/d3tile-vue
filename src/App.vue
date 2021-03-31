@@ -3,7 +3,10 @@
   <div class="view">
     <a-divider orientation="left"> 测试tileSet加载 </a-divider>
     <div class="model-row" v-for="item in links" :key="item.id">
-      {{ item.title }} <a-button @click="handleClick(item)">{{ item.isLoad ? "前往" : "加载" }}</a-button>
+      {{ item.title }}
+      <a-button @click="handleClick(item)">{{
+        item.isLoad ? "前往" : "加载"
+      }}</a-button>
     </div>
 
     <a-divider orientation="left"> 自定义tileset加载 </a-divider>
@@ -41,7 +44,15 @@ type TilesetTarget =
   | ImageryLayer
   | Cesium3DTileset
   | TimeDynamicPointCloud
-  | Promise<Entity | Entity[] | EntityCollection | DataSource | ImageryLayer | Cesium3DTileset | TimeDynamicPointCloud>;
+  | Promise<
+      | Entity
+      | Entity[]
+      | EntityCollection
+      | DataSource
+      | ImageryLayer
+      | Cesium3DTileset
+      | TimeDynamicPointCloud
+    >;
 
 export default defineComponent({
   name: "App",
@@ -51,10 +62,30 @@ export default defineComponent({
     const lat = ref("");
     const height = ref(200);
     const links = reactive([
-      { title: "测试模型1", link: "/tilesets/TilesetWithDiscreteLOD/tileset.json", id: "1", isLoad: false },
-      { title: "测试模型2", link: "/tilesets/TilesetWithExpiration/tileset.json", id: "2", isLoad: false },
-      { title: "测试模型3", link: "/tilesets/TilesetWithRequestVolume/tileset.json", id: "3", isLoad: false },
-      { title: "测试模型4", link: "/tilesets/TilesetWithTreeBillboards/tileset.json", id: "4", isLoad: false }
+      {
+        title: "测试模型1",
+        link: "/tilesets/TilesetWithDiscreteLOD/tileset.json",
+        id: "1",
+        isLoad: false
+      },
+      {
+        title: "测试模型2",
+        link: "/tilesets/TilesetWithExpiration/tileset.json",
+        id: "2",
+        isLoad: false
+      },
+      {
+        title: "测试模型3",
+        link: "/tilesets/TilesetWithRequestVolume/tileset.json",
+        id: "3",
+        isLoad: false
+      },
+      {
+        title: "测试模型4",
+        link: "/tilesets/TilesetWithTreeBillboards/tileset.json",
+        id: "4",
+        isLoad: false
+      }
     ]);
     onMounted(() => {
       window.map = new Viewer("map", {
@@ -64,8 +95,14 @@ export default defineComponent({
       window.map.scene.screenSpaceCameraController.tiltEventTypes = [
         CameraEventType.RIGHT_DRAG,
         CameraEventType.PINCH,
-        { eventType: CameraEventType.LEFT_DRAG, modifier: KeyboardEventModifier.CTRL },
-        { eventType: CameraEventType.RIGHT_DRAG, modifier: KeyboardEventModifier.CTRL }
+        {
+          eventType: CameraEventType.LEFT_DRAG,
+          modifier: KeyboardEventModifier.CTRL
+        },
+        {
+          eventType: CameraEventType.RIGHT_DRAG,
+          modifier: KeyboardEventModifier.CTRL
+        }
       ];
       window.map.scene.screenSpaceCameraController.zoomEventTypes = [
         CameraEventType.MIDDLE_DRAG,
