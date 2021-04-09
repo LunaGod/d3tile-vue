@@ -28,31 +28,8 @@ import {
   Cesium3DTileset,
   Viewer,
   CameraEventType,
-  KeyboardEventModifier,
-  DataSource,
-  Entity,
-  EntityCollection,
-  ImageryLayer,
-  TimeDynamicPointCloud
+  KeyboardEventModifier
 } from "cesium";
-
-type TilesetTarget =
-  | Entity
-  | Entity[]
-  | EntityCollection
-  | DataSource
-  | ImageryLayer
-  | Cesium3DTileset
-  | TimeDynamicPointCloud
-  | Promise<
-      | Entity
-      | Entity[]
-      | EntityCollection
-      | DataSource
-      | ImageryLayer
-      | Cesium3DTileset
-      | TimeDynamicPointCloud
-    >;
 
 export default defineComponent({
   name: "App",
@@ -123,23 +100,25 @@ export default defineComponent({
         window.map.zoomTo(tileSet);
         return;
       }
-      const titleSet = window.map.scene.primitives.add(
+      const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
           url: model.link
         })
       );
-      titleSet.readyPromise.then(function (tileset: TilesetTarget) {
+      titleSet.readyPromise.then(function (tileset) {
         window.map.zoomTo(tileset);
         model.isLoad = true;
       });
     };
+
     const customLoad = () => {
-      const titleSet = window.map.scene.primitives.add(
+      const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
           url: customLink.value
         })
       );
-      titleSet.readyPromise.then(function (tileset: TilesetTarget) {
+
+      titleSet.readyPromise.then(function (tileset) {
         window.map.zoomTo(tileset);
       });
     };
