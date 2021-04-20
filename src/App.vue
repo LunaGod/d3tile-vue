@@ -13,10 +13,11 @@
     <a-input v-model:value="customLink" placeholder="输入tileset路径" />
     <a-button @click="customLoad">加载</a-button>
     <a-divider orientation="left"> 跳转到位置 </a-divider>
-    经度： <a-input v-model:value="lon" placeholder="输入经度" /> 维度：
-    <a-input v-model:value="lat" placeholder="输入维度" />
+    经度：
+    <a-input v-model:value="position.lonlat[0]" placeholder="输入经度" /> 维度：
+    <a-input v-model:value="position.lonlat[1]" placeholder="输入维度" />
     高度：
-    <a-input v-model:value="height" placeholder="输入高度" />
+    <a-input v-model:value="position.height" placeholder="输入高度" />
     <a-button @click="toCustomLonLat">前往</a-button>
   </div>
 </template>
@@ -35,9 +36,11 @@ export default defineComponent({
   name: "App",
   setup: () => {
     const customLink = ref("");
-    const lon = ref("");
-    const lat = ref("");
-    const height = ref(200);
+    const position = reactive({
+      lonlat: ["", ""],
+      height: 200
+    });
+
     const links = reactive([
       {
         title: "测试模型1",
@@ -123,19 +126,21 @@ export default defineComponent({
       });
     };
     const toCustomLonLat = () => {
-      const x = Number(lon.value);
-      const y = Number(lat.value);
-      const h = Number(height.value);
-      window.map.camera.flyTo({ destination: Cartesian3.fromDegrees(x, y, h) });
+      const destination = Cartesian3.fromDegrees(
+        parseFloat(position.lonlat[0]),
+        parseFloat(position.lonlat[1]),
+        position.height
+      );
+      window.map.camera.flyTo({
+        destination
+      });
     };
     return {
       links,
       handleClick,
       customLoad,
       customLink,
-      lon,
-      lat,
-      height,
+      position,
       toCustomLonLat
     };
   }
