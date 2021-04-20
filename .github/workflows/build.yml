@@ -1,9 +1,8 @@
-name: Build CI
+name: Build & Deploy CI
 on:
   push:
     branches:
       - master
-  pull_request:
 jobs:
   build-production:
     name: Build
