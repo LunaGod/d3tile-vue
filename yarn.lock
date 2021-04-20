@@ -362,10 +362,10 @@ emojis-list@^3.0.0:
   resolved "https://registry.npm.taobao.org/emojis-list/download/emojis-list-3.0.0.tgz#5570662046ad29e2e916e71aae260abdff4f6a78"
   integrity sha1-VXBmIEatKeLpFucariYKvf9Pang=
 
-esbuild@^0.8.52:
-  version "0.8.57"
-  resolved "https://registry.npm.taobao.org/esbuild/download/esbuild-0.8.57.tgz#a42d02bc2b57c70bcd0ef897fe244766bb6dd926"
-  integrity sha1-pC0CvCtXxwvNDviX/iRHZrtt2SY=
+esbuild@^0.9.3:
+  version "0.9.7"
+  resolved "https://registry.nlark.com/esbuild/download/esbuild-0.9.7.tgz#ea0d639cbe4b88ec25fbed4d6ff00c8d788ef70b"
+  integrity sha1-6g1jnL5LiOwl++1Nb/AMjXiO9ws=
 
 estree-walker@^2.0.1:
   version "2.0.2"
@@ -793,12 +793,12 @@ vite-plugin-cesium@^1.1.1:
     fs-extra "^9.1.0"
     rollup-plugin-external-globals "^0.6.1"
 
-vite@^2.0.5:
-  version "2.0.5"
-  resolved "https://registry.npm.taobao.org/vite/download/vite-2.0.5.tgz#ac46857a3fa8686d077921e61bd48a986931df1d"
-  integrity sha1-rEaFej+oaG0HeSHmG9SKmGkx3x0=
+vite@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.nlark.com/vite/download/vite-2.2.1.tgz#90c481f69371f32867d86a6a623bb064b876ad3d"
+  integrity sha1-kMSB9pNx8yhn2GpqYjuwZLh2rT0=
   dependencies:
-    esbuild "^0.8.52"
+    esbuild "^0.9.3"
     postcss "^8.2.1"
     resolve "^1.19.0"
     rollup "^2.38.5"
