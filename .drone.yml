@@ -1,0 +1,9 @@
+kind: pipeline
+name: Build Test
+
+steps:
+- name: Build
+  image: node:14
+  commands:
+  - npm install
+  - npm build
