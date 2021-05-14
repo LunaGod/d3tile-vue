@@ -1,6 +1,12 @@
 kind: pipeline
 name: Build Test
 
+trigger:
+  event:
+    - push
+    - tag
+    - pull_request
+
 steps:
 - name: Build
   image: node:14
