@@ -10,14 +10,14 @@
     </div>
 
     <a-divider orientation="left"> 自定义tileset加载 </a-divider>
-    <a-input v-model="customLink" placeholder="输入tileset路径" />
+    <a-input v-model:value="customLink" placeholder="输入tileset路径" />
     <a-button @click="customLoad">加载</a-button>
     <a-divider orientation="left"> 跳转到位置 </a-divider>
     经度：
-    <a-input v-model="position.lonlat[0]" placeholder="输入经度" /> 维度：
-    <a-input v-model="position.lonlat[1]" placeholder="输入维度" />
+    <a-input v-model:value="position.lonlat[0]" placeholder="输入经度" /> 维度：
+    <a-input v-model:value="position.lonlat[1]" placeholder="输入维度" />
     高度：
-    <a-input v-model="position.height" placeholder="输入高度" />
+    <a-input v-model:value="position.height" placeholder="输入高度" />
     <a-button @click="toCustomLonLat">前往</a-button>
   </div>
 </template>
@@ -120,6 +120,8 @@ export default defineComponent({
     };
 
     const customLoad = () => {
+      console.log(customLink.value);
+
       const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
           url: customLink.value

@@ -21,6 +21,7 @@ module.exports = defineConfig({
   plugins: ["vue", "@typescript-eslint"],
   rules: {
     "vue/no-multiple-template-root": "off",
-    "import/no-extraneous-dependencies": "off"
+    "import/no-extraneous-dependencies": "off",
+    "vue/no-v-model-argument": "off"
   }
 });
