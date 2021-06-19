@@ -1,8 +1,8 @@
 <template>
-  <div class="map" id="map"></div>
+  <div id="map" class="map"></div>
   <div class="view">
     <a-divider orientation="left"> 测试tileSet加载 </a-divider>
-    <div class="model-row" v-for="item in links" :key="item.id">
+    <div v-for="item in links" :key="item.id" class="model-row">
       {{ item.title }}
       <a-button @click="handleClick(item)">{{
         item.isLoad ? "前往" : "加载"
@@ -120,8 +120,6 @@ export default defineComponent({
     };
 
     const customLoad = () => {
-      console.log(customLink.value);
-
       const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
           url: customLink.value

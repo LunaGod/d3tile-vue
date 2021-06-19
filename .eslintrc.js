@@ -8,7 +8,7 @@ module.exports = defineConfig({
     node: true
   },
   extends: [
-    "plugin:vue/essential",
+    "plugin:vue/vue3-recommended",
     "airbnb-base",
     "plugin:prettier/recommended",
     "plugin:jest/recommended"
@@ -20,8 +20,6 @@ module.exports = defineConfig({
   },
   plugins: ["vue", "@typescript-eslint"],
   rules: {
-    "vue/no-multiple-template-root": "off",
-    "import/no-extraneous-dependencies": "off",
-    "vue/no-v-model-argument": "off"
+    "import/no-extraneous-dependencies": "off"
   }
 });
