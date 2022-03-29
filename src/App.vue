@@ -1,155 +1,165 @@
 <template>
-  <div id="map" class="map"></div>
+  <div id="map" class="map" />
   <div class="view">
-    <a-divider orientation="left"> 测试tileSet加载 </a-divider>
+    <a-divider orientation="left">
+      测试tileSet加载
+    </a-divider>
     <div v-for="item in links" :key="item.id" class="model-row">
       {{ item.title }}
-      <a-button @click="handleClick(item)">{{
-        item.isLoad ? "前往" : "加载"
-      }}</a-button>
+      <a-button @click="handleClick(item)">
+        {{
+          item.isLoad ? "前往" : "加载"
+        }}
+      </a-button>
     </div>
 
-    <a-divider orientation="left"> 自定义tileset加载 </a-divider>
+    <a-divider orientation="left">
+      自定义tileset加载
+    </a-divider>
     <a-input v-model:value="customLink" placeholder="输入tileset路径" />
-    <a-button @click="customLoad">加载</a-button>
-    <a-divider orientation="left"> 跳转到位置 </a-divider>
+    <a-button @click="customLoad">
+      加载
+    </a-button>
+    <a-divider orientation="left">
+      跳转到位置
+    </a-divider>
     经度：
     <a-input v-model:value="position.lonlat[0]" placeholder="输入经度" /> 维度：
     <a-input v-model:value="position.lonlat[1]" placeholder="输入维度" />
     高度：
     <a-input v-model:value="position.height" placeholder="输入高度" />
-    <a-button @click="toCustomLonLat">前往</a-button>
+    <a-button @click="toCustomLonLat">
+      前往
+    </a-button>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, ref } from "vue";
+import { defineComponent, onMounted, reactive, ref } from 'vue'
 import {
+  CameraEventType,
   Cartesian3,
   Cesium3DTileset,
+  KeyboardEventModifier,
   Viewer,
-  CameraEventType,
-  KeyboardEventModifier
-} from "cesium";
+} from 'cesium'
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   setup: () => {
-    const customLink = ref("");
+    const customLink = ref('')
     const position = reactive({
-      lonlat: ["", ""],
-      height: 200
-    });
+      lonlat: ['', ''],
+      height: 200,
+    })
 
     const links = reactive([
       {
-        title: "测试模型1",
-        link: "/tilesets/TilesetWithDiscreteLOD/tileset.json",
-        id: "1",
-        isLoad: false
+        title: '测试模型1',
+        link: '/tilesets/TilesetWithDiscreteLOD/tileset.json',
+        id: '1',
+        isLoad: false,
       },
       {
-        title: "测试模型2",
-        link: "/tilesets/TilesetWithExpiration/tileset.json",
-        id: "2",
-        isLoad: false
+        title: '测试模型2',
+        link: '/tilesets/TilesetWithExpiration/tileset.json',
+        id: '2',
+        isLoad: false,
       },
       {
-        title: "测试模型3",
-        link: "/tilesets/TilesetWithRequestVolume/tileset.json",
-        id: "3",
-        isLoad: false
+        title: '测试模型3',
+        link: '/tilesets/TilesetWithRequestVolume/tileset.json',
+        id: '3',
+        isLoad: false,
       },
       {
-        title: "测试模型4",
-        link: "/tilesets/TilesetWithTreeBillboards/tileset.json",
-        id: "4",
-        isLoad: false
-      }
-    ]);
+        title: '测试模型4',
+        link: '/tilesets/TilesetWithTreeBillboards/tileset.json',
+        id: '4',
+        isLoad: false,
+      },
+    ])
     onMounted(() => {
-      window.map = new Viewer("map", {
+      window.map = new Viewer('map', {
         animation: false,
-        timeline: false
-      });
+        timeline: false,
+      })
       window.map.scene.screenSpaceCameraController.tiltEventTypes = [
         CameraEventType.RIGHT_DRAG,
         CameraEventType.PINCH,
         {
           eventType: CameraEventType.LEFT_DRAG,
-          modifier: KeyboardEventModifier.CTRL
+          modifier: KeyboardEventModifier.CTRL,
         },
         {
           eventType: CameraEventType.RIGHT_DRAG,
-          modifier: KeyboardEventModifier.CTRL
-        }
-      ];
+          modifier: KeyboardEventModifier.CTRL,
+        },
+      ]
       window.map.scene.screenSpaceCameraController.zoomEventTypes = [
         CameraEventType.MIDDLE_DRAG,
         CameraEventType.WHEEL,
-        CameraEventType.PINCH
-      ];
-    });
+        CameraEventType.PINCH,
+      ]
+    })
     const handleClick = (model: { link: any; isLoad: boolean }) => {
-      let primitiveIndex = -1;
+      let primitiveIndex = -1
 
-      const { primitives } = window.map.scene;
+      const { primitives } = window.map.scene
       for (let i = 0; i < primitives.length; i += 1) {
-        if (primitives.get(i).url === model.link) {
-          primitiveIndex = i;
-        }
+        if (primitives.get(i).url === model.link)
+          primitiveIndex = i
       }
       if (primitiveIndex > 0) {
-        const tileSet = window.map.scene.primitives.get(primitiveIndex);
-        window.map.zoomTo(tileSet);
-        return;
+        const tileSet = window.map.scene.primitives.get(primitiveIndex)
+        window.map.zoomTo(tileSet)
+        return
       }
       const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
-          url: model.link
-        })
-      );
-      titleSet.readyPromise.then(function onfulfilled(tileset) {
-        window.map.zoomTo(tileset);
+          url: model.link,
+        }),
+      )
+      titleSet.readyPromise.then((tileset) => {
+        window.map.zoomTo(tileset)
         links.forEach((link, index) => {
-          if (link.link === model.link) {
-            links[index].isLoad = true;
-          }
-        });
-      });
-    };
+          if (link.link === model.link)
+            links[index].isLoad = true
+        })
+      })
+    }
 
     const customLoad = () => {
       const titleSet: Cesium3DTileset = window.map.scene.primitives.add(
         new Cesium3DTileset({
-          url: customLink.value
-        })
-      );
+          url: customLink.value,
+        }),
+      )
 
-      titleSet.readyPromise.then(function onfulfilled(tileset) {
-        window.map.zoomTo(tileset);
-      });
-    };
+      titleSet.readyPromise.then((tileset) => {
+        window.map.zoomTo(tileset)
+      })
+    }
     const toCustomLonLat = () => {
       const destination = Cartesian3.fromDegrees(
         parseFloat(position.lonlat[0]),
         parseFloat(position.lonlat[1]),
-        position.height
-      );
+        position.height,
+      )
       window.map.camera.flyTo({
-        destination
-      });
-    };
+        destination,
+      })
+    }
     return {
       links,
       handleClick,
       customLoad,
       customLink,
       position,
-      toCustomLonLat
-    };
-  }
-});
+      toCustomLonLat,
+    }
+  },
+})
 </script>
 
 <style lang="sass">
