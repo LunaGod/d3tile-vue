@@ -1,39 +1,3 @@
-<template>
-  <div id="map" class="map" />
-  <div class="view">
-    <a-divider orientation="left">
-      测试tileSet加载
-    </a-divider>
-    <div v-for="item in links" :key="item.id" class="model-row">
-      {{ item.title }}
-      <a-button @click="handleClick(item)">
-        {{
-          item.isLoad ? "前往" : "加载"
-        }}
-      </a-button>
-    </div>
-
-    <a-divider orientation="left">
-      自定义tileset加载
-    </a-divider>
-    <a-input v-model:value="customLink" placeholder="输入tileset路径" />
-    <a-button @click="customLoad">
-      加载
-    </a-button>
-    <a-divider orientation="left">
-      跳转到位置
-    </a-divider>
-    经度：
-    <a-input v-model:value="position.lonlat[0]" placeholder="输入经度" /> 维度：
-    <a-input v-model:value="position.lonlat[1]" placeholder="输入维度" />
-    高度：
-    <a-input v-model:value="position.height" placeholder="输入高度" />
-    <a-button @click="toCustomLonLat">
-      前往
-    </a-button>
-  </div>
-</template>
-
 <script lang="ts">
 import { defineComponent, onMounted, reactive, ref } from 'vue'
 import {
@@ -161,6 +125,40 @@ export default defineComponent({
   },
 })
 </script>
+
+<template lang="pug">
+.map#map
+.view
+  a-divider(orientation="left")
+    | 测试tileSet加载
+  div(v-for="item in links" :key="item.id" class="model-row")
+    a-button(@click="handleClick(item)")
+      | {{item.isLoad ? "前往" : "加载"}}
+  a-divider(orientation="left")
+    | 自定义加载
+  a-input(
+    v-model="customLink"
+    placeholder="请输入自定义tileSet地址"
+  )
+  a-button(@click="customLoad")
+    | 加载
+  a-divider(orientation="left")
+    | 自定义位置
+  a-input(
+    v-model="position.lonlat[0]"
+    placeholder="请输入经度"
+  )
+  a-input(
+    v-model="position.lonlat[1]"
+    placeholder="请输入纬度"
+  )
+  a-input(
+    v-model="position.height"
+    placeholder="请输入高度"
+  )
+  a-button(@click="toCustomLonLat")
+    | 前往
+</template>
 
 <style lang="sass">
 *
