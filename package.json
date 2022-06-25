@@ -4,26 +4,26 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "serve": "vite preview",
-    "test": "jest"
+    "serve": "vite preview"
   },
   "dependencies": {
-    "ant-design-vue": "^2.2.8",
-    "cesium": "^1.91.0",
-    "vue": "^3.2.31"
+    "ant-design-vue": "^3.2.9",
+    "cesium": "^1.94.3",
+    "vue": "^3.2.37"
   },
   "devDependencies": {
-    "@antfu/eslint-config": "^0.18.9",
-    "@types/node": "^14.18.12",
-    "@vitejs/plugin-vue": "^1.10.2",
-    "@vue/compiler-sfc": "^3.2.31",
-    "chalk": "^4.1.2",
-    "eslint": "^8.12.0",
-    "lint-staged": "^10.5.4",
-    "sass": "^1.49.9",
-    "typescript": "^4.6.3",
-    "vite": "^2.8.6",
-    "vite-plugin-cesium": "^1.2.14",
+    "@antfu/eslint-config": "^0.25.2",
+    "@types/node": "^18.0.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "@vue/compiler-sfc": "^3.2.37",
+    "chalk": "^5.0.1",
+    "eslint": "^8.18.0",
+    "lint-staged": "^13.0.3",
+    "pug": "^3.0.2",
+    "sass": "^1.53.0",
+    "typescript": "^4.7.4",
+    "vite": "^2.9.12",
+    "vite-plugin-cesium": "^1.2.19",
     "yorkie": "^2.0.0"
   },
   "gitHooks": {
@@ -32,14 +32,13 @@
   },
   "lint-staged": {
     "*.js": [
-      "prettier --write"
+      "eslint --fix"
     ],
     "*.ts": [
-      "eslint",
-      "prettier --parser=typescript --write"
+      "eslint --fix"
     ],
     "*.html": [
-      "prettier --write"
+      "eslint --fix"
     ]
   }
 }
